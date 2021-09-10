@@ -1,0 +1,22 @@
+#webgl {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.container {
+  padding: 16em;
+  position: absolute;
+}
+h1 {
+  font-size: 120px;
+  position: absolute;
+  color: white;
+}
+
+/* GUI追加css */
+.dg.main.a {
+  margin-top: 40px;
+}
