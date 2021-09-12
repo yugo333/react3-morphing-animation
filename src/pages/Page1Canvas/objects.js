@@ -1,12 +1,11 @@
 import * as THREE from "three";
 
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
-import { PointShader } from "./shaders/PointShader";
-import particle from "./shaders/particle.frag";
+import PointShaderFrag from "./shaders/PointShader.frag";
+import PointShaderVert from "./shaders/PointShader.vert";
 
 export const objects = (threeObj) => {
   const [mesh, group] = _setMesh(threeObj);
-  console.log(particle);
   const lights = [];
   lights[0] = new THREE.PointLight(0xffffff, 1, 0);
   lights[1] = new THREE.PointLight(0xffffff, 1, 0);
@@ -56,13 +55,31 @@ const _setMesh = (threeObj) => {
   const fivePos = _getGeometryPosition(
     new THREE.IcosahedronBufferGeometry(1.1, 0).toNonIndexed()
   );
+
+  function loadFile(url) {
+    var request = new XMLHttpRequest();
+    request.open("GET", url, false);
+    request.send(null);
+    // リクエストが完了したとき
+    if (request.readyState === 4) {
+      // Http status 200 (成功)
+      if (request.status === 200) {
+        return request.responseText;
+      } else {
+        // 失敗
+        // console.log("error");
+        return null;
+      }
+    }
+  }
+  const frag = loadFile(PointShaderFrag);
+  const vert = loadFile(PointShaderVert);
+
   const material = new THREE.RawShaderMaterial({
-    // frag vert 記述時に使う
-    // vertexShader: `./shaders/particle.vert`,
-    // fragmentShader: `./shaders/particle.frag`,
     // js 表示
-    vertexShader: new PointShader().vertexShader(),
-    fragmentShader: new PointShader().fragmentShader(),
+    vertexShader: vert,
+    fragmentShader: frag,
+
     // html なんだかんだ一番描くの楽かも
     // vertexShader: document.querySelector("#js-vertex-shader").textContent,
     // fragmentShader: document.querySelector("#js-fragment-shader").textContent,
