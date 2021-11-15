@@ -23,6 +23,21 @@ const Navigation = () => {
             <li>
               <Link to="/pageSample4">Five</Link>
             </li>
+            <li>
+              <Link to="/pageSample5">Six</Link>
+            </li>
+            <li>
+              <Link to="/pageSample6">Seven</Link>
+            </li>
+            <li>
+              <Link to="/pageSample7">Eight</Link>
+            </li>
+            <li>
+              <Link to="/pageSample8">Nine</Link>
+            </li>
+            <li>
+              <Link to="/pageSample9">Ten</Link>
+            </li>
             {/* <li>
               <a href="/">products</a>
             </li>

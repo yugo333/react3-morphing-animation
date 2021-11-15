@@ -1,8 +1,9 @@
 import * as THREE from "three";
 
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
-import PointShaderFrag from "./shaders/PointShader.frag";
-import PointShaderVert from "./shaders/PointShader.vert";
+import PointShaderFrag from "./shaders/fragShader.frag";
+import PointShaderVert from "./shaders/vertShader.vert";
+// import ShaderConfig from "worker-loader!./shaders/ShaderConfig";
 
 export const objects = (threeObj) => {
   const [mesh, group] = _setMesh(threeObj);
@@ -53,7 +54,7 @@ const _setMesh = (threeObj) => {
     new THREE.CylinderBufferGeometry(1, 1, 1, 32, 32).toNonIndexed()
   );
   const fivePos = _getGeometryPosition(
-    new THREE.IcosahedronBufferGeometry(1.1, 0).toNonIndexed()
+    new THREE.IcosahedronBufferGeometry(1.1, 0)
   );
 
   function loadFile(url) {
@@ -72,6 +73,16 @@ const _setMesh = (threeObj) => {
       }
     }
   }
+  // const loadFile = (url) => {
+  //   const worker = new ShaderConfig();
+
+  //   worker.addEventListener("message", (e) => {
+  //     const { data } = e;
+  //     return data;
+  //   });
+  //   // workerにてvertとfrag持ってくる
+  //   worker.postMessage(url);
+  // };
   const frag = loadFile(PointShaderFrag);
   const vert = loadFile(PointShaderVert);
 

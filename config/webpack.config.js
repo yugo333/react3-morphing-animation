@@ -562,10 +562,25 @@ module.exports = function (webpackEnv) {
         //   exclude: /node_modules/,
         // },
         {
-          test: /.(vert|frag)$/,
-          use: "raw-loader",
+          test: /\.(glsl|vs|fs|vert|frag)$/,
+          use: ["raw-loader", "glslify-loader"],
           include: [path.resolve(__dirname, "src")],
           exclude: /node_modules/,
+        },
+        // {
+        //   test: /\.(vert|frag|glsl)$/,
+        //   use: {
+        //     loader: "webpack-glsl-loader",
+        //   },
+        // },
+        {
+          test: /\.worker\.js$/,
+          use: {
+            loader: "worker-loader",
+            options: {
+              inline: true,
+            },
+          },
         },
       ],
     },
